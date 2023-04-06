@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div style="width: 100px;height: 100px;background: red" id="drag">
+
+  </div>
+  <div style="width: 600px; height: 30px; border: 1px solid red;">
+    <div id="progress" style="height: 30px; background: pink; width: 0px;">
+
+    </div>
+  </div>
+  <button id="upload">提交</button>
+  <!-- <form action="/upload" method="POST" enctype="multipart/form-data">
+
+  </form> -->
+
+  <script>
+    let file = '';
+    drag.addEventListener('dragover', function (e) {
+      e.preventDefault();
+    })
+    drag.addEventListener('drop', function (e) {
+      e.preventDefault();
+      console.log(e.dataTransfer)
+      console.log(e.dataTransfer.files.length)
+      file = e.dataTransfer.files[0];
+    })
+    upload.addEventListener('click', () => {
+      let xhr = new XMLHttpRequest();
+      xhr.open('POST', 'upload', true);
+      let fd = new FormData();
+      xhr.onload = function () {
+        alert('ok')
+      }
+      xhr.upload.onprogress = function (e) {
+         console.log(e.total, e.loaded)
+         progress.style.width = e.loaded / e.total * 100 + '%'
+      }
+      xhr.send(fd)
+    })
+  </script>
+</body>
+</html>
